@@ -1,0 +1,92 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+
+      - name: Test with Maven
+        run: mvn test
+
+
+#jobs:
+#  plan:
+#    name: Terraform Plan
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout Código
+#        uses: actions/checkout@v4
+#
+#      - name: Configurar AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v2
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: us-east-1  # Defina a região correta para o seu EKS
+#
+#      - name: Instalar Terraform
+#        uses: hashicorp/setup-terraform@v3
+#        with:
+#          terraform_version: latest
+#
+#      - name: Inicializar Terraform
+#        run: terraform init
+#        working-directory: terraform-eks
+#
+#      - name: Validar Terraform
+#        run: terraform validate
+#        working-directory: terraform-eks
+#
+#      - name: Planejar Terraform
+#        run: terraform plan
+#        working-directory: terraform-eks
+
+#  deploy:
+#    name: Terraform Deploy
+#    needs: plan
+#    if: github.ref == 'refs/heads/main'
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout Código
+#        uses: actions/checkout@v4
+#
+#      - name: Configurar AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v2
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: us-east-1  # Defina a região correta para o seu EKS
+#
+#      - name: Instalar Terraform
+#        uses: hashicorp/setup-terraform@v3
+#        with:
+#          terraform_version: latest
+#
+#      - name: Inicializar Terraform
+#        run: terraform init
+#        working-directory: terraform-eks  # Define o diretório para inicializar o Terraform
+#
+#      - name: Aplicar Terraform
+#        run: terraform apply -auto-approve
+#        working-directory: terraform-eks  # Define o diretório para aplicar o Terraform
