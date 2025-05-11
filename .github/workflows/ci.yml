@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Building Application
+  pre-build:
+    name: Pre Building
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
@@ -23,7 +23,13 @@ jobs:
       - name: Construir e testar
         run: mvn clean install
 
+  build:
+    name: Building Application
+    needs: pre-build
+    runs-on: ubuntu-latest
+    steps:
       - name: Definir variáveis de versão
+        if: github.ref == 'refs/heads/main'
         run: echo "TIMESTAMP=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
       - name: Fazer login no Amazon ECR
