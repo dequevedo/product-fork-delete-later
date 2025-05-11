@@ -74,14 +74,14 @@ http://localhost:30080/swagger-ui/index.html
 
 ## 🧠 Arquitetura
 
-Este microserviço adota uma **arquitetura Clean**, baseada em princípios de separação de responsabilidades e desacoplamento de infraestrutura.
+Este microserviço adota o padrão **Clean Architecture**, com foco em separação de responsabilidades e independência tecnológica.
 
 **Principais camadas:**
 
-- `domain`: Entidades e regras de negócio
-- `application`: Casos de uso e DTOs
-- `adapters`: Controladores e mapeadores
-- `infrastructure`: Repositórios, configuração e integrações externas
+- **core**: Entidades, regras de negócio, casos de uso e contratos (ports)
+- **adapters**: Controladores e mapeadores que traduzem o mundo externo para o domínio
+- **frameworks**: Implementações específicas (REST, JPA, integrações externas)
+- **shared**: Configurações globais e utilitários comuns
 
 ---
 
