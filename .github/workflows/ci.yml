@@ -27,7 +27,7 @@ jobs:
     name: Building Application
     needs: pre-build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' # Executa automaticamente na main ou manualmente via botão (workflow_dispatch)
 
     steps:
       - name: Definir variáveis de versão
@@ -54,7 +54,7 @@ jobs:
     name: Deploying Application
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' # Executa automaticamente na main ou manualmente via botão (workflow_dispatch)
 
     steps:
       - name: Checkout do código
