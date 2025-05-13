@@ -32,23 +32,6 @@ services:
       - postgres
     restart: unless-stopped
 
-  product-api:
-    container_name: product-api-container
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-postgres-api-product}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-    ports:
-      - "8080:8080"
-    networks:
-      - postgres
-    restart: unless-stopped
-
 networks:
   postgres:
     driver: bridge
