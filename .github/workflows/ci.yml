@@ -45,7 +45,7 @@ jobs:
 
       - name: Construir a imagem Docker com múltiplas tags
         run: |
-          docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ env.TIMESTAMP }} .
+          docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ env.TIMESTAMP }} -f ./Dockerfile .
           docker tag ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ env.TIMESTAMP }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
 
       - name: Enviar a imagem para o Amazon ECR
